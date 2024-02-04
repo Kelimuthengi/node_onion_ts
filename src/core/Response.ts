@@ -12,13 +12,11 @@ interface ResponseData {
 }
 
 abstract class ResponseApi{
-    constructor(responseCode: ResponseStatus, message: string, ){
-      
+    constructor(
+       protected responseCode: ResponseStatus, 
+       protected message: string, 
+        ){
     }
-
-    // prepare response in case you want to add somehting to the headers:
-
-  
 
     send(res: Response, response:ResponseData){
         return res.status(this.responseCode).json(response)
