@@ -6,18 +6,27 @@ enum ResponseStatus {
     failed = 400
 }
 
-interface ResponseData {
+export interface ResponseData {
     data:object,
     count:number
 }
 
 abstract class ResponseApi{
     constructor(
-       protected responseCode: ResponseStatus, 
-       protected message: string, 
+       protected responseCode: ResponseStatus,  
         ){
     }
 
+    send(res: Response, response:ResponseData){
+        return res.status(this.responseCode).json(response)
+    }
+}
+
+export class SuccessResponse extends ResponseApi{
+    constructor(message: string = 'Successfull'){
+        super(ResponseStatus.success)
+    }
+   
     send(res: Response, response:ResponseData){
         return res.status(this.responseCode).json(response)
     }
